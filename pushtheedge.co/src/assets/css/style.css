@@ -1,0 +1,31 @@
+/* This file contains the CSS styles for the website. You can add styles specific to the bootcamp page here if needed. */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Bootcamp specific styles */
+.bootcamp-header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.bootcamp-content {
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.bootcamp-footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+}
