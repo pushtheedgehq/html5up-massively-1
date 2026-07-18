@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PushTheEdge — Become a Job-Ready Software Engineer in 8 Weeks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #000000; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #000; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+/* ------------------------------------------------------------------ */
+/*  Minimal inline icon set (replaces lucide-react for a plain HTML     */
+/*  build with no bundler)                                             */
+/* ------------------------------------------------------------------ */
+const { useState, useEffect, useRef, useCallback } = React;
+
+function Icon({ children, size = 20, color, fill = "none", style, className }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={fill}
+      stroke={color || "currentColor"}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={style}
+      className={className}
+    >
+      {children}
+    </svg>
+  );
+}
+
+const Code2 = (p) => (
+  <Icon {...p}>
+    <polyline points="16 18 22 12 16 6" />
+    <polyline points="8 6 2 12 8 18" />
+  </Icon>
+);
+const Server = (p) => (
+  <Icon {...p}>
+    <rect x="2" y="4" width="20" height="6" rx="1.5" />
+    <rect x="2" y="14" width="20" height="6" rx="1.5" />
+    <line x1="6" y1="7" x2="6.01" y2="7" />
+    <line x1="6" y1="17" x2="6.01" y2="17" />
+  </Icon>
+);
+const Layers = (p) => (
+  <Icon {...p}>
+    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+    <polyline points="2 17 12 22 22 17" />
+    <polyline points="2 12 12 17 22 12" />
+  </Icon>
+);
+const Bug = (p) => (
+  <Icon {...p}>
+    <rect x="8" y="6" width="8" height="12" rx="4" />
+    <line x1="12" y1="3" x2="12" y2="6" />
+    <line x1="8" y1="10" x2="3" y2="8" />
+    <line x1="16" y1="10" x2="21" y2="8" />
+    <line x1="8" y1="14" x2="3" y2="16" />
+    <line x1="16" y1="14" x2="21" y2="16" />
+  </Icon>
+);
+const ShieldCheck = (p) => (
+  <Icon {...p}>
+    <path d="M12 2 20 6 20 12C20 17 16 20 12 22 8 20 4 17 4 12L4 6Z" />
+    <polyline points="8.5 12 11 14.5 16 9" />
+  </Icon>
+);
+const ClipboardList = (p) => (
+  <Icon {...p}>
+    <rect x="5" y="4" width="14" height="17" rx="2" />
+    <rect x="9" y="2" width="6" height="3" rx="1" />
+    <line x1="8" y1="11" x2="16" y2="11" />
+    <line x1="8" y1="15" x2="16" y2="15" />
+    <line x1="8" y1="19" x2="13" y2="19" />
+  </Icon>
+);
+const MessageCircle = (p) => (
+  <Icon {...p}>
+    <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.38 8.38 0 0 1 8.5-8.5 8.38 8.38 0 0 1 8.5 8.5z" />
+  </Icon>
+);
+const ChevronDown = (p) => (
+  <Icon {...p}>
+    <polyline points="6 9 12 15 18 9" />
+  </Icon>
+);
+const ChevronRight = (p) => (
+  <Icon {...p}>
+    <polyline points="9 18 15 12 9 6" />
+  </Icon>
+);
+const ChevronLeft = (p) => (
+  <Icon {...p}>
+    <polyline points="15 18 9 12 15 6" />
+  </Icon>
+);
+const Check = (p) => (
+  <Icon {...p}>
+    <polyline points="20 6 9 17 4 12" />
+  </Icon>
+);
+const Star = (p) => (
+  <Icon {...p}>
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </Icon>
+);
+const ArrowRight = (p) => (
+  <Icon {...p}>
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
+  </Icon>
+);
+const Menu = (p) => (
+  <Icon {...p}>
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </Icon>
+);
+const X = (p) => (
+  <Icon {...p}>
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </Icon>
+);
+const Award = (p) => (
+  <Icon {...p}>
+    <circle cx="12" cy="8" r="6" />
+    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+  </Icon>
+);
+const Users = (p) => (
+  <Icon {...p}>
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </Icon>
+);
+const TrendingUp = (p) => (
+  <Icon {...p}>
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+    <polyline points="17 6 23 6 23 12" />
+  </Icon>
+);
+const Sparkles = (p) => (
+  <Icon {...p}>
+    <path d="M12 3l1.8 4.6L18 9.5l-4.2 1.9L12 16l-1.8-4.6L6 9.5l4.2-1.9L12 3z" />
+    <path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z" />
+  </Icon>
+);
+const Circle = (p) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="9" />
+  </Icon>
+);
+
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/* ------------------------------------------------------------------ */
+const C = {
+  bg: "#000000",
+  bg2: "#0A0A0A",
+  card: "#121212",
+  border: "rgba(255,255,255,0.1)",
+  borderStrong: "rgba(255,255,255,0.22)",
+  lime: "#A3E635",
+  blue: "#FFFFFF",
+  white: "#FFFFFF",
+  muted: "#9CA3AF",
+};
+
+const mono = { fontFamily: "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace" };
+const sans = { fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif" };
+
+/* ------------------------------------------------------------------ */
+/*  Brand mark — recreated from the PushTheEdge logo: three skewed     */
+/*  white ribbon bands reading PUSH / THE / EDGE on black              */
+/* ------------------------------------------------------------------ */
+function PTELogoMark({ size = 40 }) {
+  const words = ["PUSH", "THE", "EDGE"];
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        background: "#000000",
+        border: `1px solid ${C.border}`,
+        borderRadius: size * 0.14,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        gap: Math.max(size * 0.035, 1.5),
+        padding: size * 0.1,
+        flexShrink: 0,
+      }}
+    >
+      {words.map((w, i) => (
+        <div
+          key={w}
+          style={{
+            background: "#FFFFFF",
+            transform: `skewX(-16deg) translateX(${i % 2 === 0 ? -size * 0.035 : size * 0.035}px)`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: `${Math.max(size * 0.02, 1)}px 0`,
+          }}
+        >
+          <span
+            style={{
+              transform: "skewX(16deg)",
+              fontSize: Math.max(size * 0.155, 5),
+              fontWeight: 800,
+              color: "#000000",
+              letterSpacing: 0.5,
+              lineHeight: 1,
+              ...sans,
+            }}
+          >
+            {w}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Scroll reveal hook                                                 */
+/* ------------------------------------------------------------------ */
+function useReveal() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          io.unobserve(el);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+function Reveal({ children, delay = 0, className = "" }) {
+  const [ref, visible] = useReveal();
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0px)" : "translateY(24px)",
+        transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Animated counter                                                   */
+/* ------------------------------------------------------------------ */
+function Counter({ to, suffix = "", duration = 1400 }) {
+  const [ref, visible] = useReveal();
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!visible) return;
+    let start = null;
+    const step = (ts) => {
+      if (start === null) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setVal(Math.floor(eased * to));
+      if (progress < 1) requestAnimationFrame(step);
+      else setVal(to);
+    };
+    requestAnimationFrame(step);
+  }, [visible, to, duration]);
+  return (
+    <span ref={ref}>
+      {val}
+      {suffix}
+    </span>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Data                                                               */
+/* ------------------------------------------------------------------ */
+const NAV_LINKS = ["Home", "Courses", "Success Stories", "FAQ", "Contact"];
+
+const PROGRAMS = [
+  { key: "python", icon: Code2, name: "Python Programming", duration: "8 weeks", level: "Beginner \u2013 Intermediate", desc: "Automation, data tooling, and backend fundamentals with Python." },
+  { key: "backend", icon: Server, name: "Backend Development (.NET)", duration: "8 weeks", level: "Intermediate", desc: "Build production APIs and services with C# and .NET." },
+  { key: "fullstack", icon: Layers, name: "Full Stack Web Development", duration: "8 weeks", level: "Beginner \u2013 Advanced", desc: "React front ends paired with real back-end systems, end to end." },
+  { key: "qa", icon: Bug, name: "Software Testing (QA)", duration: "8 weeks", level: "Beginner", desc: "Manual and automated testing practices used on real teams." },
+  { key: "cyber", icon: ShieldCheck, name: "Cybersecurity", duration: "8 weeks", level: "Beginner \u2013 Intermediate", desc: "Core security principles, threat models, and defensive practice." },
+  { key: "pm", icon: ClipboardList, name: "Product Management", duration: "8 weeks", level: "All Levels", desc: "Ship products: discovery, roadmaps, and cross-team delivery." },
+];
+
+const FEATURES = [
+  { icon: Users, title: "Live Instructor-led Classes", desc: "Real-time sessions with working engineers, not pre-recorded slides." },
+  { icon: Layers, title: "Real Projects", desc: "You ship things you can point to \u2014 not toy exercises." },
+  { icon: Sparkles, title: "Mentorship", desc: "Paired with a mentor who reviews your work and unblocks you." },
+  { icon: TrendingUp, title: "Career Guidance", desc: "Resume, portfolio, and interview prep built into every cohort." },
+  { icon: ClipboardList, title: "Flexible Payment Plans", desc: "Pay in full, in installments, or through employer sponsorship." },
+  { icon: Users, title: "Small Class Sizes", desc: "More time with instructors, less time waiting for a turn." },
+];
+
+const TESTIMONIALS = [
+  { name: "Ada Chukwu", course: "Full Stack Web Development", job: "Frontend Engineer, Flux Systems", quote: "I went from tutorials to a real offer in under three months. The mentorship made the difference.", rating: 5 },
+  { name: "Tunde Bakare", course: "Backend Development (.NET)", job: "Software Engineer, Ledgerly", quote: "The projects were close to what I now do at work every day. It felt like paid experience.", rating: 5 },
+  { name: "Ngozi Eze", course: "Cybersecurity", job: "SOC Analyst, Northbridge", quote: "Small classes meant I actually got feedback. That's rare and it's why I kept up.", rating: 5 },
+  { name: "Femi Alabi", course: "Product Management", job: "Associate PM, Ridgeline", quote: "Career support wasn't an afterthought \u2014 it started in week two, not week eight.", rating: 4 },
+];
+
+const STEPS = [
+  { title: "Submit Application", desc: "Tell us about your background and goals \u2014 takes about 3 minutes." },
+  { title: "Admissions Review", desc: "Our team reviews your application within 48 hours." },
+  { title: "Orientation Call", desc: "A short call to confirm fit, answer questions, and set expectations." },
+  { title: "Begin Learning", desc: "Join your cohort and start building from day one." },
+];
+
+const FAQS = [
+  { q: "Do I need prior experience?", a: "No. Most tracks are built for beginners, though some (like Backend Development) move faster if you've coded before." },
+  { q: "Will classes be recorded?", a: "Yes. Every live session is recorded and added to your dashboard within a few hours." },
+  { q: "Can I pay in installments?", a: "Yes, we offer flexible installment plans in addition to full payment and employer sponsorship." },
+  { q: "Will I receive a certificate?", a: "Yes, every graduate receives a certificate of completion recognized by our hiring partners." },
+  { q: "How long are classes?", a: "Live sessions run 2\u20133 times a week, roughly 2 hours each, with project work in between." },
+  { q: "Is there career support?", a: "Yes \u2014 resume reviews, mock interviews, and portfolio guidance are included in every program." },
+];
+
+const CODE_LINES = [
+  { t: "const", c: C.blue }, { t: " engineer = " }, { t: "await", c: C.lime },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Small building blocks                                              */
+/* ------------------------------------------------------------------ */
+function Pill({ children }) {
+  return (
+    <span className="inline-flex" style={{ transform: "skewX(-16deg)" }}>
+      <span
+        className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-bold uppercase"
+        style={{ background: C.lime, color: "#000000", transform: "skewX(16deg)", letterSpacing: 1, ...mono }}
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
+function PrimaryButton({ children, onClick, className = "", full = false }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`group inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${full ? "w-full" : ""} ${className}`}
+      style={{ background: C.lime, color: "#08150A", boxShadow: "0 0 0 rgba(163,230,53,0)" }}
+      onMouseEnter={(e) => (e.currentTarget.style.boxShadow = `0 8px 30px rgba(163,230,53,0.25)`)}
+      onMouseLeave={(e) => (e.currentTarget.style.boxShadow = `0 0 0 rgba(163,230,53,0)`)}
+    >
+      {children}
+      <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+    </button>
+  );
+}
+
+function GhostButton({ children, onClick, className = "" }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 ${className}`}
+      style={{ border: `1px solid ${C.borderStrong}`, color: C.white, background: "rgba(255,255,255,0.02)" }}
+    >
+      {children}
+    </button>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Navbar                                                             */
+/* ------------------------------------------------------------------ */
+function Navbar({ onApply, onWhatsapp }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        background: scrolled ? "rgba(7,17,31,0.85)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: scrolled ? `1px solid ${C.border}` : "1px solid transparent",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16">
+        <div className="flex items-center gap-2.5">
+          <PTELogoMark size={34} />
+          <span className="text-lg font-bold tracking-tight hidden sm:inline" style={{ color: C.white, ...sans }}>
+            PushTheEdge
+          </span>
+        </div>
+
+        <nav className="hidden md:flex items-center gap-8">
+          {NAV_LINKS.map((l) => (
+            <a
+              key={l}
+              href="#"
+              className="text-sm transition-colors duration-200"
+              style={{ color: C.muted }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = C.white)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = C.muted)}
+            >
+              {l}
+            </a>
+          ))}
+        </nav>
+
+        <div className="hidden md:flex items-center gap-3">
+          <GhostButton onClick={onWhatsapp} className="!px-4 !py-2 text-xs">
+            <MessageCircle size={14} /> WhatsApp
+          </GhostButton>
+          <PrimaryButton onClick={onApply} className="!px-4 !py-2 text-xs">
+            Apply Now
+          </PrimaryButton>
+        </div>
+
+        <button className="md:hidden" onClick={() => setOpen(!open)} style={{ color: C.white }}>
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
+      {open && (
+        <div
+          className="md:hidden px-6 pb-6 flex flex-col gap-4"
+          style={{ background: C.bg, borderBottom: `1px solid ${C.border}` }}
+        >
+          {NAV_LINKS.map((l) => (
+            <a key={l} href="#" className="text-sm" style={{ color: C.muted }}>
+              {l}
+            </a>
+          ))}
+          <PrimaryButton onClick={onApply}>Apply Now</PrimaryButton>
+          <GhostButton onClick={onWhatsapp}>
+            <MessageCircle size={14} /> Chat on WhatsApp
+          </GhostButton>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Hero — signature element: live terminal / floating skill cards     */
+/* ------------------------------------------------------------------ */
+function TerminalCard() {
+  const [typed, setTyped] = useState(0);
+  const full = "const career = await pushTheEdge.build(you);";
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTyped((t) => (t < full.length ? t + 1 : (clearInterval(id), t)));
+    }, 45);
+    return () => clearInterval(id);
+  }, []);
+
+  const floats = [
+    { label: "Python", top: "6%", left: "-8%", delay: "0s" },
+    { label: ".NET", top: "68%", left: "-12%", delay: "0.6s" },
+    { label: "Cybersecurity", top: "82%", left: "58%", delay: "1.1s" },
+    { label: "QA", top: "4%", left: "72%", delay: "1.6s" },
+    { label: "Product", top: "40%", left: "88%", delay: "2s" },
+  ];
+
+  return (
+    <div className="relative w-full max-w-lg mx-auto">
+      <style>{`
+        @keyframes ptefloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes ptecaret {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+      `}</style>
+
+      <div
+        className="rounded-2xl overflow-hidden"
+        style={{ background: C.card, border: `1px solid ${C.border}`, boxShadow: "0 30px 80px rgba(0,0,0,0.45)" }}
+      >
+        <div
+          className="flex items-center gap-2 px-4 py-3"
+          style={{ borderBottom: `1px solid ${C.border}`, background: "rgba(255,255,255,0.02)" }}
+        >
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.25)" }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.25)" }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: C.lime }} />
+          <span className="ml-3 text-xs" style={{ color: C.muted, ...mono }}>
+            cohort.ts
+          </span>
+        </div>
+        <div className="p-6 text-sm leading-7" style={mono}>
+          <div style={{ color: C.muted }}>// 8 weeks. one goal.</div>
+          <div style={{ color: C.white }}>
+            {full.slice(0, typed)}
+            <span style={{ animation: "ptecaret 1s steps(1) infinite", color: C.lime }}>▌</span>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {["live-online", "mentorship", "career-support"].map((tag) => (
+              <span
+                key={tag}
+                className="rounded-md px-2 py-1 text-xs"
+                style={{ background: "rgba(163,230,53,0.1)", color: C.lime }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {floats.map((f, i) => (
+        <div
+          key={f.label}
+          className="hidden md:flex absolute items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium"
+          style={{
+            top: f.top,
+            left: f.left,
+            background: C.bg2,
+            border: `1px solid ${C.border}`,
+            color: C.white,
+            animation: `ptefloat 4s ease-in-out ${f.delay} infinite`,
+            boxShadow: "0 12px 30px rgba(0,0,0,0.35)",
+            ...sans,
+          }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: i % 2 === 0 ? C.lime : C.blue }} />
+          {f.label}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Hero({ onApply }) {
+  return (
+    <section className="relative pt-40 pb-24 px-6 md:px-10 overflow-hidden" style={{ background: C.bg }}>
+      {/* subtle code-snippet backdrop */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.06] select-none"
+        style={{ ...mono, fontSize: 12, lineHeight: 1.6, color: C.white, whiteSpace: "pre" }}
+      >
+        <div className="absolute -left-10 top-10">{`function launchCareer(you) {\n  return you.skills.map(grow);\n}`}</div>
+        <div className="absolute right-0 bottom-0">{`class Engineer extends Student {\n  ship() { return "done"; }\n}`}</div>
+      </div>
+
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center relative">
+        <Reveal>
+          <Pill>Learn. Build. Grow.</Pill>
+          <h1
+            className="mt-6 text-4xl md:text-6xl font-extrabold leading-[1.08] tracking-tight"
+            style={{ color: C.white, ...sans }}
+          >
+            Become a Job-Ready<br />
+            <span style={{ color: C.lime }}>Software Engineer</span><br />
+            in Just 8 Weeks
+          </h1>
+          <p className="mt-6 text-lg max-w-md" style={{ color: C.muted }}>
+            Learn live from experienced engineers. Build real-world projects. Get mentorship. Launch your tech career.
+          </p>
+
+          <div className="mt-8 grid grid-cols-2 gap-3 max-w-md">
+            {["Live Online", "Industry Mentors", "Hands-on Projects", "Career Support"].map((t) => (
+              <div key={t} className="flex items-center gap-2 text-sm" style={{ color: C.white }}>
+                <Check size={16} style={{ color: C.lime }} /> {t}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <PrimaryButton onClick={onApply}>Apply Now</PrimaryButton>
+            <GhostButton>View Courses</GhostButton>
+          </div>
+        </Reveal>
+
+        <Reveal delay={150}>
+          <TerminalCard />
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Social proof                                                       */
+/* ------------------------------------------------------------------ */
+function SocialProof() {
+  const stats = [
+    { to: 500, suffix: "+", label: "Students Trained" },
+    { to: 95, suffix: "%", label: "Student Satisfaction" },
+    { to: 8, suffix: "-Week", label: "Intensive Programs" },
+    { to: 1200, suffix: "+", label: "Certificates Issued" },
+  ];
+  const logos = ["Flux Systems", "Ledgerly", "Northbridge", "Ridgeline", "Cobalt Labs"];
+  return (
+    <section className="py-20 px-6 md:px-10" style={{ background: C.bg2, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
+      <div className="max-w-7xl mx-auto">
+        <Reveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="text-3xl md:text-4xl font-extrabold" style={{ color: C.lime, ...sans }}>
+                  <Counter to={s.to} suffix={s.suffix} />
+                </div>
+                <div className="mt-2 text-sm" style={{ color: C.muted }}>
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div className="mt-16 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+            {logos.map((l) => (
+              <span key={l} className="text-sm font-semibold tracking-wide" style={{ color: C.muted, opacity: 0.6, ...mono }}>
+                {l}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Why choose us                                                      */
+/* ------------------------------------------------------------------ */
+function WhyChooseUs() {
+  return (
+    <section className="py-24 px-6 md:px-10" style={{ background: C.bg }}>
+      <div className="max-w-7xl mx-auto">
+        <Reveal>
+          <Pill>Why PushTheEdge</Pill>
+          <h2 className="mt-4 text-3xl md:text-4xl font-extrabold" style={{ color: C.white, ...sans }}>
+            Built like a product team, not a classroom
+          </h2>
+        </Reveal>
+
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {FEATURES.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <Reveal key={f.title} delay={i * 60}>
+                <div
+                  className="h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+                  style={{ background: C.card, border: `1px solid ${C.border}` }}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = C.lime)}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = C.border)}
+                >
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center"
+                    style={{ background: "rgba(163,230,53,0.1)" }}
+                  >
+                    <Icon size={20} style={{ color: C.lime }} />
+                  </div>
+                  <h3 className="mt-4 font-semibold" style={{ color: C.white }}>
+                    {f.title}
+                  </h3>
+                  <p className="mt-2 text-sm" style={{ color: C.muted }}>
+                    {f.desc}
+                  </p>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Programs                                                           */
+/* ------------------------------------------------------------------ */
+function Programs({ onApply, selected, toggleProgram }) {
+  return (
+    <section id="courses" className="py-24 px-6 md:px-10" style={{ background: C.bg2 }}>
+      <div className="max-w-7xl mx-auto">
+        <Reveal>
+          <Pill>Programs</Pill>
+          <h2 className="mt-4 text-3xl md:text-4xl font-extrabold" style={{ color: C.white, ...sans }}>
+            Six tracks. One outcome: hireable.
+          </h2>
+        </Reveal>
+
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {PROGRAMS.map((p, i) => {
+            const Icon = p.icon;
+            return (
+              <Reveal key={p.key} delay={i * 60}>
+                <div
+                  className="h-full rounded-2xl p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                  style={{ background: C.card, border: `1px solid ${C.border}` }}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = C.blue)}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = C.border)}
+                  onClick={onApply}
+                >
+                  <div className="flex items-center justify-between">
+                    <div
+                      className="w-11 h-11 rounded-xl flex items-center justify-center"
+                      style={{ background: "rgba(255,255,255,0.08)" }}
+                    >
+                      <Icon size={20} style={{ color: C.blue }} />
+                    </div>
+                    <span className="text-xs" style={{ color: C.muted, ...mono }}>
+                      {p.duration}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 font-semibold" style={{ color: C.white }}>
+                    {p.name}
+                  </h3>
+                  <div className="mt-1 text-xs" style={{ color: C.lime, ...mono }}>
+                    {p.level}
+                  </div>
+                  <p className="mt-3 text-sm flex-1" style={{ color: C.muted }}>
+                    {p.desc}
+                  </p>
+                  <button
+                    className="mt-5 inline-flex items-center gap-1 text-sm font-semibold"
+                    style={{ color: C.white }}
+                  >
+                    Apply <ChevronRight size={15} />
+                  </button>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Testimonials                                                       */
+/* ------------------------------------------------------------------ */
+function Testimonials() {
+  const [idx, setIdx] = useState(0);
+  const t = TESTIMONIALS[idx];
+  const next = () => setIdx((i) => (i + 1) % TESTIMONIALS.length);
+  const prev = () => setIdx((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+
+  const stats = [
+    { label: "Avg. Salary Increase", value: "42%" },
+    { label: "Employment Rate", value: "88%" },
+    { label: "Projects Completed", value: "3,400+" },
+  ];
+
+  return (
+    <section id="success-stories" className="py-24 px-6 md:px-10" style={{ background: C.bg }}>
+      <div className="max-w-5xl mx-auto">
+        <Reveal>
+          <Pill>Success Stories</Pill>
+          <h2 className="mt-4 text-3xl md:text-4xl font-extrabold text-center md:text-left" style={{ color: C.white, ...sans }}>
+            Graduates, not just students
+          </h2>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div
+            className="mt-10 rounded-2xl p-8 md:p-10"
+            style={{ background: C.card, border: `1px solid ${C.border}` }}
+          >
+            <div className="flex gap-1 mb-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={16} fill={i < t.rating ? C.lime : "none"} color={i < t.rating ? C.lime : C.muted} />
+              ))}
+            </div>
+            <p className="text-lg md:text-xl leading-relaxed" style={{ color: C.white }}>
+              "{t.quote}"
+            </p>
+            <div className="mt-6 flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-11 h-11 rounded-full flex items-center justify-center font-bold"
+                  style={{ background: "rgba(163,230,53,0.15)", color: C.lime }}
+                >
+                  {t.name.split(" ").map((n) => n[0]).join("")}
+                </div>
+                <div>
+                  <div className="font-semibold" style={{ color: C.white }}>
+                    {t.name}
+                  </div>
+                  <div className="text-xs" style={{ color: C.muted }}>
+                    {t.course} &middot; {t.job}
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={prev}
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+                  style={{ border: `1px solid ${C.border}`, color: C.white }}
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={next}
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+                  style={{ border: `1px solid ${C.border}`, color: C.white }}
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={150}>
+          <div className="mt-10 grid grid-cols-3 gap-4 text-center">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="text-2xl md:text-3xl font-extrabold" style={{ color: C.blue, ...sans }}>
+                  {s.value}
+                </div>
+                <div className="mt-1 text-xs" style={{ color: C.muted }}>
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Admissions process                                                 */
+/* ------------------------------------------------------------------ */
+function AdmissionsProcess() {
+  return (
+    <section className="py-24 px-6 md:px-10" style={{ background: C.bg2 }}>
+      <div className="max-w-5xl mx-auto">
+        <Reveal>
+          <Pill>Admissions</Pill>
+          <h2 className="mt-4 text-3xl md:text-4xl font-extrabold" style={{ color: C.white, ...sans }}>
+            Four steps from here to your first cohort
+          </h2>
+        </Reveal>
+
+        <div className="mt-14 relative">
+          <div
+            className="hidden md:block absolute left-0 right-0 top-6"
+            style={{ height: 1, background: C.border }}
+          />
+          <div className="grid md:grid-cols-4 gap-10 md:gap-6">
+            {STEPS.map((s, i) => (
+              <Reveal key={s.title} delay={i * 100}>
+                <div className="relative flex md:flex-col gap-4 md:gap-0 items-start">
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center font-bold shrink-0 relative z-10"
+                    style={{ background: C.bg2, border: `2px solid ${C.lime}`, color: C.lime, ...mono }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className="md:mt-5">
+                    <h3 className="font-semibold" style={{ color: C.white }}>
+                      {s.title}
+                    </h3>
+                    <p className="mt-1 text-sm" style={{ color: C.muted }}>
+                      {s.desc}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Countdown                                                          */
+/* ------------------------------------------------------------------ */
+function useCountdown(target) {
+  const [left, setLeft] = useState(target - Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setLeft(target - Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [target]);
+  const clamped = Math.max(left, 0);
+  const d = Math.floor(clamped / 86400000);
+  const h = Math.floor((clamped % 86400000) / 3600000);
+  const m = Math.floor((clamped % 3600000) / 60000);
+  const s = Math.floor((clamped % 60000) / 1000);
+  return { d, h, m, s };
+}
+
+function Sidebar({ onWhatsapp }) {
+  const target = useRef(new Date("2026-08-03T00:00:00").getTime()).current;
+  const { d, h, m, s } = useCountdown(target);
+  return (
+    <div
+      className="rounded-2xl p-6 sticky top-24"
+      style={{ background: C.card, border: `1px solid ${C.border}` }}
+    >
+      <div className="flex items-center gap-2 text-xs" style={{ color: C.lime, ...mono }}>
+        <Circle size={8} fill={C.lime} /> LIVE CHAT AVAILABLE
+      </div>
+
+      <h3 className="mt-4 font-semibold" style={{ color: C.white }}>
+        Upcoming Cohort
+      </h3>
+      <p className="text-sm" style={{ color: C.muted }}>
+        Starts August 2026
+      </p>
+
+      <div className="mt-4 grid grid-cols-4 gap-2 text-center">
+        {[["D", d], ["H", h], ["M", m], ["S", s]].map(([label, val]) => (
+          <div key={label} className="rounded-lg py-2" style={{ background: C.bg2, border: `1px solid ${C.border}` }}>
+            <div className="text-lg font-bold" style={{ color: C.white, ...mono }}>
+              {String(val).padStart(2, "0")}
+            </div>
+            <div className="text-[10px]" style={{ color: C.muted }}>
+              {label}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div
+        className="mt-4 rounded-lg px-3 py-2 text-sm font-semibold text-center"
+        style={{ background: "rgba(163,230,53,0.1)", color: C.lime }}
+      >
+        12 Seats Left
+      </div>
+
+      <div className="mt-5 flex flex-col gap-2 text-sm" style={{ color: C.muted }}>
+        <div className="flex items-center gap-2">
+          <Award size={15} style={{ color: C.blue }} /> Certificate on completion
+        </div>
+        <div className="flex items-center gap-2">
+          <Star size={15} style={{ color: C.blue }} fill={C.blue} /> 4.9 average rating
+        </div>
+        <div className="flex items-center gap-2">
+          <ShieldCheck size={15} style={{ color: C.blue }} /> Money-back guarantee
+        </div>
+      </div>
+
+      <GhostButton onClick={onWhatsapp} className="w-full mt-5">
+        <MessageCircle size={15} /> Chat on WhatsApp
+      </GhostButton>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Multi-step application form                                        */
+/* ------------------------------------------------------------------ */
+const EMPTY_FORM = {
+  fullName: "", email: "", phone: "", whatsapp: "", city: "", country: "", ageRange: "",
+  qualification: "", occupation: "", employment: "", experience: "", hearAbout: "",
+  programs: [], cohort: "", laptop: "", internet: "",
+  motivation: "", goal: "", commitment: "", payment: "", agree: false,
+};
+
+function Field({ label, children }) {
+  return (
+    <label className="block">
+      <span className="text-sm font-medium" style={{ color: C.white }}>
+        {label}
+      </span>
+      <div className="mt-1.5">{children}</div>
+    </label>
+  );
+}
+
+const inputStyle = {
+  width: "100%",
+  background: C.bg2,
+  border: `1px solid ${C.border}`,
+  borderRadius: 10,
+  padding: "10px 14px",
+  color: C.white,
+  fontSize: 14,
+  outline: "none",
+};
+
+function TextInput(props) {
+  return (
+    <input
+      {...props}
+      style={inputStyle}
+      onFocus={(e) => (e.target.style.borderColor = C.lime)}
+      onBlur={(e) => (e.target.style.borderColor = C.border)}
+    />
+  );
+}
+
+function SelectInput({ options, ...props }) {
+  return (
+    <select
+      {...props}
+      style={inputStyle}
+      onFocus={(e) => (e.target.style.borderColor = C.lime)}
+      onBlur={(e) => (e.target.style.borderColor = C.border)}
+    >
+      <option value="">Select...</option>
+      {options.map((o) => (
+        <option key={o} value={o}>
+          {o}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function ChoiceGroup({ options, value, onChange }) {
+  return (
+    <div className="flex gap-2 flex-wrap">
+      {options.map((o) => {
+        const active = value === o;
+        return (
+          <button
+            key={o}
+            type="button"
+            onClick={() => onChange(o)}
+            className="rounded-lg px-4 py-2 text-sm font-medium transition-colors"
+            style={{
+              background: active ? C.lime : C.bg2,
+              color: active ? "#08150A" : C.white,
+              border: `1px solid ${active ? C.lime : C.border}`,
+            }}
+          >
+            {o}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function ApplicationForm({ formRef }) {
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState(EMPTY_FORM);
+  const [submitted, setSubmitted] = useState(false);
+  const totalSteps = 4;
+
+  const set = (key) => (e) => {
+    const val = e && e.target ? e.target.value : e;
+    setForm((f) => ({ ...f, [key]: val }));
+  };
+
+  const toggleProgram = (name) => {
+    setForm((f) => ({
+      ...f,
+      programs: f.programs.includes(name)
+        ? f.programs.filter((p) => p !== name)
+        : [...f.programs, name],
+    }));
+  };
+
+  const canNext = () => {
+    if (step === 0) return form.fullName && form.email && form.phone && form.city && form.country && form.ageRange;
+    if (step === 1) return form.qualification && form.employment && form.hearAbout;
+    if (step === 2) return form.programs.length > 0 && form.cohort && form.laptop && form.internet;
+    return true;
+  };
+
+  const submit = () => {
+    if (!form.agree) return;
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div
+        ref={formRef}
+        className="rounded-2xl p-10 text-center"
+        style={{ background: C.card, border: `1px solid ${C.border}` }}
+      >
+        <div
+          className="w-14 h-14 rounded-full flex items-center justify-center mx-auto"
+          style={{ background: "rgba(163,230,53,0.15)" }}
+        >
+          <Check size={26} style={{ color: C.lime }} />
+        </div>
+        <h3 className="mt-5 text-xl font-bold" style={{ color: C.white }}>
+          Application received
+        </h3>
+        <p className="mt-2 text-sm max-w-sm mx-auto" style={{ color: C.muted }}>
+          Thanks, {form.fullName.split(" ")[0] || "there"}. Our admissions team reviews applications within 48 hours &mdash; we'll reach you on WhatsApp or email.
+        </p>
+        <GhostButton className="mt-6 mx-auto" onClick={() => { setSubmitted(false); setStep(0); setForm(EMPTY_FORM); }}>
+          Submit another application
+        </GhostButton>
+      </div>
+    );
+  }
+
+  return (
+    <div ref={formRef} className="rounded-2xl overflow-hidden" style={{ background: C.card, border: `1px solid ${C.border}` }}>
+      <div className="p-6 md:p-8" style={{ borderBottom: `1px solid ${C.border}` }}>
+        <div className="flex items-center justify-between text-xs" style={{ color: C.muted }}>
+          <span>Step {step + 1} of {totalSteps}</span>
+          <span style={mono}>~3 min to complete</span>
+        </div>
+        <div className="mt-3 h-1.5 rounded-full overflow-hidden" style={{ background: C.bg2 }}>
+          <div
+            className="h-full transition-all duration-500 rounded-full"
+            style={{ width: `${((step + 1) / totalSteps) * 100}%`, background: C.lime }}
+          />
+        </div>
+      </div>
+
+      <div className="p-6 md:p-8">
+        {step === 0 && (
+          <div className="grid sm:grid-cols-2 gap-5">
+            <h3 className="sm:col-span-2 text-lg font-bold" style={{ color: C.white }}>
+              Personal Information
+            </h3>
+            <Field label="Full Name"><TextInput value={form.fullName} onChange={set("fullName")} placeholder="Jane Doe" /></Field>
+            <Field label="Email Address"><TextInput type="email" value={form.email} onChange={set("email")} placeholder="jane@email.com" /></Field>
+            <Field label="Phone Number"><TextInput value={form.phone} onChange={set("phone")} placeholder="+234..." /></Field>
+            <Field label="WhatsApp Number"><TextInput value={form.whatsapp} onChange={set("whatsapp")} placeholder="+234..." /></Field>
+            <Field label="City"><TextInput value={form.city} onChange={set("city")} placeholder="Lagos" /></Field>
+            <Field label="Country"><TextInput value={form.country} onChange={set("country")} placeholder="Nigeria" /></Field>
+            <Field label="Age Range">
+              <SelectInput options={["Under 18", "18-24", "25-34", "35-44", "45+"]} value={form.ageRange} onChange={set("ageRange")} />
+            </Field>
+          </div>
+        )}
+
+        {step === 1 && (
+          <div className="grid sm:grid-cols-2 gap-5">
+            <h3 className="sm:col-span-2 text-lg font-bold" style={{ color: C.white }}>
+              Background
+            </h3>
+            <Field label="Highest Qualification">
+              <SelectInput options={["Secondary School", "Diploma", "Bachelor's Degree", "Master's Degree", "Other"]} value={form.qualification} onChange={set("qualification")} />
+            </Field>
+            <Field label="Current Occupation"><TextInput value={form.occupation} onChange={set("occupation")} placeholder="e.g. Marketing Executive" /></Field>
+            <Field label="Employment Status">
+              <SelectInput options={["Employed Full-time", "Employed Part-time", "Self-employed", "Unemployed", "Student"]} value={form.employment} onChange={set("employment")} />
+            </Field>
+            <Field label="Previous Tech Experience">
+              <SelectInput options={["None", "Some self-taught", "Bootcamp graduate", "Formal CS education"]} value={form.experience} onChange={set("experience")} />
+            </Field>
+            <Field label="How did you hear about us?">
+              <SelectInput options={["Instagram", "LinkedIn", "Friend/Referral", "Google Search", "WhatsApp", "Other"]} value={form.hearAbout} onChange={set("hearAbout")} />
+            </Field>
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="space-y-6">
+            <h3 className="text-lg font-bold" style={{ color: C.white }}>
+              Choose Program
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {PROGRAMS.map((p) => {
+                const active = form.programs.includes(p.name);
+                return (
+                  <button
+                    type="button"
+                    key={p.key}
+                    onClick={() => toggleProgram(p.name)}
+                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-colors"
+                    style={{ background: active ? "rgba(163,230,53,0.1)" : C.bg2, border: `1px solid ${active ? C.lime : C.border}` }}
+                  >
+                    <span
+                      className="w-5 h-5 rounded-md flex items-center justify-center shrink-0"
+                      style={{ background: active ? C.lime : "transparent", border: `1px solid ${active ? C.lime : C.borderStrong}` }}
+                    >
+                      {active && <Check size={13} color="#08150A" />}
+                    </span>
+                    <span className="text-sm" style={{ color: C.white }}>{p.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div>
+              <span className="text-sm font-medium" style={{ color: C.white }}>Preferred Cohort</span>
+              <div className="mt-2"><ChoiceGroup options={["Weekday", "Weekend", "Evening"]} value={form.cohort} onChange={(v) => set("cohort")(v)} /></div>
+            </div>
+            <div>
+              <span className="text-sm font-medium" style={{ color: C.white }}>Laptop Available?</span>
+              <div className="mt-2"><ChoiceGroup options={["Yes", "No"]} value={form.laptop} onChange={(v) => set("laptop")(v)} /></div>
+            </div>
+            <div>
+              <span className="text-sm font-medium" style={{ color: C.white }}>Internet Access?</span>
+              <div className="mt-2"><ChoiceGroup options={["Yes", "No"]} value={form.internet} onChange={(v) => set("internet")(v)} /></div>
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="space-y-5">
+            <h3 className="text-lg font-bold" style={{ color: C.white }}>
+              Goals
+            </h3>
+            <Field label="Why do you want to learn tech?">
+              <textarea
+                rows={3}
+                value={form.motivation}
+                onChange={set("motivation")}
+                style={{ ...inputStyle, resize: "vertical" }}
+                placeholder="Tell us a little about your why..."
+              />
+            </Field>
+            <Field label="Career Goal">
+              <TextInput value={form.goal} onChange={set("goal")} placeholder="e.g. Land a junior developer role" />
+            </Field>
+            <div>
+              <span className="text-sm font-medium" style={{ color: C.white }}>Can you dedicate at least 10 hours weekly?</span>
+              <div className="mt-2"><ChoiceGroup options={["Yes", "No"]} value={form.commitment} onChange={(v) => set("commitment")(v)} /></div>
+            </div>
+            <div>
+              <span className="text-sm font-medium" style={{ color: C.white }}>Payment Preference</span>
+              <div className="mt-2"><ChoiceGroup options={["Full Payment", "Installments", "Employer Sponsored"]} value={form.payment} onChange={(v) => set("payment")(v)} /></div>
+            </div>
+            <label className="flex items-start gap-3 text-sm cursor-pointer" style={{ color: C.muted }}>
+              <input type="checkbox" checked={form.agree} onChange={(e) => setForm((f) => ({ ...f, agree: e.target.checked }))} className="mt-1" />
+              I agree to the terms.
+            </label>
+          </div>
+        )}
+      </div>
+
+      <div className="px-6 md:px-8 pb-8 flex items-center justify-between">
+        {step > 0 ? (
+          <GhostButton onClick={() => setStep((s) => s - 1)} className="!px-5 !py-2.5">
+            <ChevronLeft size={15} /> Back
+          </GhostButton>
+        ) : <span />}
+
+        {step < totalSteps - 1 ? (
+          <PrimaryButton onClick={() => canNext() && setStep((s) => s + 1)} className={!canNext() ? "opacity-50 pointer-events-none" : ""}>
+            Next
+          </PrimaryButton>
+        ) : (
+          <PrimaryButton onClick={submit} className={!form.agree ? "opacity-50 pointer-events-none" : ""}>
+            Submit Application
+          </PrimaryButton>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  FAQ                                                                 */
+/* ------------------------------------------------------------------ */
+function FaqItem({ q, a, open, onClick }) {
+  return (
+    <div className="rounded-xl overflow-hidden" style={{ border: `1px solid ${C.border}`, background: C.card }}>
+      <button
+        className="w-full flex items-center justify-between px-5 py-4 text-left"
+        onClick={onClick}
+      >
+        <span className="font-medium text-sm" style={{ color: C.white }}>{q}</span>
+        <ChevronDown
+          size={18}
+          style={{ color: C.muted, transform: open ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.3s ease" }}
+        />
+      </button>
+      <div
+        style={{
+          maxHeight: open ? 200 : 0,
+          overflow: "hidden",
+          transition: "max-height 0.35s ease",
+        }}
+      >
+        <p className="px-5 pb-4 text-sm" style={{ color: C.muted }}>{a}</p>
+      </div>
+    </div>
+  );
+}
+
+function Faq() {
+  const [open, setOpen] = useState(0);
+  return (
+    <section id="faq" className="py-24 px-6 md:px-10" style={{ background: C.bg2 }}>
+      <div className="max-w-3xl mx-auto">
+        <Reveal>
+          <Pill>FAQ</Pill>
+          <h2 className="mt-4 text-3xl md:text-4xl font-extrabold" style={{ color: C.white, ...sans }}>
+            Questions, answered
+          </h2>
+        </Reveal>
+        <div className="mt-10 space-y-3">
+          {FAQS.map((f, i) => (
+            <Reveal key={f.q} delay={i * 40}>
+              <FaqItem q={f.q} a={f.a} open={open === i} onClick={() => setOpen(open === i ? -1 : i)} />
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Final CTA + Footer                                                 */
+/* ------------------------------------------------------------------ */
+function FinalCta({ onApply, onWhatsapp }) {
+  return (
+    <section className="px-6 md:px-10 py-20" style={{ background: C.bg }}>
+      <Reveal>
+        <div
+          className="max-w-5xl mx-auto rounded-3xl p-10 md:p-16 text-center relative overflow-hidden"
+          style={{ background: `linear-gradient(135deg, ${C.card}, ${C.bg2})`, border: `1px solid ${C.border}` }}
+        >
+          <div
+            className="absolute -top-20 -right-20 w-64 h-64 rounded-full"
+            style={{ background: C.lime, opacity: 0.08, filter: "blur(60px)" }}
+          />
+          <h2 className="text-3xl md:text-5xl font-extrabold" style={{ color: C.white, ...sans }}>
+            Ready to Change Your Career?
+          </h2>
+          <p className="mt-4 max-w-lg mx-auto" style={{ color: C.muted }}>
+            Join hundreds of students building successful careers in technology.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4 justify-center">
+            <PrimaryButton onClick={onApply}>Apply Now</PrimaryButton>
+            <GhostButton onClick={onWhatsapp}><MessageCircle size={15} /> Chat on WhatsApp</GhostButton>
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="px-6 md:px-10 py-14" style={{ background: C.bg2, borderTop: `1px solid ${C.border}` }}>
+      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <PTELogoMark size={34} />
+            <span className="text-lg font-bold" style={{ color: C.white }}>
+              PushTheEdge
+            </span>
+          </div>
+          <p className="mt-3 text-sm" style={{ color: C.muted }}>Learn. Build. Grow.</p>
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold" style={{ color: C.white }}>Quick Links</h4>
+          <ul className="mt-3 space-y-2 text-sm" style={{ color: C.muted }}>
+            <li>Courses</li><li>Privacy Policy</li><li>Terms</li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold" style={{ color: C.white }}>Contact</h4>
+          <ul className="mt-3 space-y-2 text-sm" style={{ color: C.muted }}>
+            <li>WhatsApp</li><li>Instagram</li><li>LinkedIn</li><li>hello@pushtheedge.com</li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold" style={{ color: C.white }}>Get Started</h4>
+          <p className="mt-3 text-sm" style={{ color: C.muted }}>Applications open for the August 2026 cohort.</p>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto mt-10 pt-6 text-xs" style={{ borderTop: `1px solid ${C.border}`, color: C.muted }}>
+        &copy; {new Date().getFullYear()} PushTheEdge. All rights reserved.
+      </div>
+    </footer>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Root                                                                */
+/* ------------------------------------------------------------------ */
+function PushTheEdgeLanding() {
+  const formRef = useRef(null);
+  const scrollToForm = useCallback(() => {
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+  const openWhatsapp = useCallback(() => {
+    window.open("https://wa.me/2340000000000", "_blank");
+  }, []);
+
+  return (
+    <div style={{ background: C.bg, minHeight: "100vh", ...sans }}>
+      <Navbar onApply={scrollToForm} onWhatsapp={openWhatsapp} />
+      <Hero onApply={scrollToForm} />
+      <SocialProof />
+      <WhyChooseUs />
+      <Programs onApply={scrollToForm} />
+      <Testimonials />
+      <AdmissionsProcess />
+
+      <section id="apply" className="py-24 px-6 md:px-10" style={{ background: C.bg }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <Pill>Application</Pill>
+            <h2 className="mt-4 text-3xl md:text-4xl font-extrabold" style={{ color: C.white, ...sans }}>
+              Start your application
+            </h2>
+            <p className="mt-2 text-sm" style={{ color: C.muted }}>
+              Four short steps. Your progress is kept as you go &mdash; takes about 3 minutes.
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2">
+              <Reveal><ApplicationForm formRef={formRef} /></Reveal>
+            </div>
+            <div className="hidden lg:block">
+              <Reveal delay={100}><Sidebar onWhatsapp={openWhatsapp} /></Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Faq />
+      <FinalCta onApply={scrollToForm} onWhatsapp={openWhatsapp} />
+      <Footer />
+
+      <button
+        onClick={openWhatsapp}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105"
+        style={{ background: C.lime, color: "#08150A" }}
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle size={24} />
+      </button>
+    </div>
+  );
+}
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<PushTheEdgeLanding />);
+</script>
+</body>
+</html>
