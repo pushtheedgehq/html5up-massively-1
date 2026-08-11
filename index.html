@@ -40,6 +40,33 @@
   ::selection{background:var(--accent); color:var(--white);}
   :focus-visible{outline:3px solid var(--accent); outline-offset:3px;}
 
+  .announcement-bar{
+    width:100%;
+    padding:12px 20px;
+    text-align:center;
+    background:#003366;
+    color:#ffffff;
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.02em;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    position:sticky;
+    top:0;
+    z-index:120;
+    border-bottom:1px solid rgba(245,244,239,0.16);
+  }
+  .announcement-bar a{
+    color:var(--paper);
+    text-decoration:underline;
+    text-underline-offset:2px;
+    font-weight:600;
+  }
+  .announcement-bar a:hover{opacity:0.9;}
+
   .wrap{max-width:1240px; margin:0 auto; padding:0 32px;}
   @media (max-width:640px){ .wrap{padding:0 20px;} }
 
@@ -65,7 +92,7 @@
 
   /* ============ NAV ============ */
   header{
-    position:fixed; top:0; left:0; right:0; z-index:100;
+    position:fixed; top:48px; left:0; right:0; z-index:100;
     background:rgba(245,244,239,0.86);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
@@ -382,6 +409,11 @@
 </head>
 <body>
 
+<div class="announcement-bar">
+  🎓 Now Open: Cybersecurity Scholarship Applications! Apply today for our intensive 12-week Cybersecurity Training Program —
+  <a href="https://pushtheedge.fillout.com/cybersec" target="_blank">Apply now</a>
+</div>
+
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <header>
@@ -414,7 +446,7 @@
   </div>
   <div class="wrap hero-inner">
     <span class="eyebrow">Digital Transformation Consultancy</span>
-    <h1>We don't advise from the sidelines. We <em>push</em> until you reach the edge.</h1>
+    <h1>We don't advise from the sidelines. We <em>push</em> until you reach your goal.</h1>
     <p class="lede">PushTheEdge partners with enterprises and public institutions to plan, build, and audit the systems that carry their business forward — from strategy to shipped software.</p>
     <div class="hero-ctas">
       <a href="#contact" class="btn btn-primary">Talk to us →</a>
@@ -667,7 +699,7 @@
       </div>
       <div class="foot-col">
         <h5>Get in Touch</h5>
-        <a href="mailto:hello@pushtheedge.com">hello@pushtheedge.com</a>
+        <a href="mailto:hello@pushtheedge.co">hello@pushtheedge.co</a>
         <a href="tel:+2348000000000">+234 800 000 0000</a>
       </div>
     </div>
